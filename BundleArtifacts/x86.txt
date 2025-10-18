@@ -1,0 +1,2 @@
+MainPackage=C:\Users\youpr\source\repos\AppPerfect\AppPerfect\bin\x86\Release\AppPerfect_1.7.3.0_x86.msix
+SymbolPackage=C:\Users\youpr\source\repos\AppPerfect\AppPerfect\obj\x86\Release\Symbols\AppPerfect_1.7.3.0_x86.appxsym

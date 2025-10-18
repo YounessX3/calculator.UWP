@@ -1,0 +1,120 @@
+﻿<Page x:Name="navigationview"
+    x:Class="AppPerfect.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AppPerfect"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <AcrylicBrush x:Key="NavigationViewExpandedPaneBackground"
+                                  BackgroundSource="HostBackdrop"
+                                  TintColor="#CCFFFFFF"
+                                  TintOpacity="0.6"
+                                  FallbackColor="#F2F2F2"/>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <AcrylicBrush x:Key="NavigationViewExpandedPaneBackground"
+                                  BackgroundSource="HostBackdrop"
+                                  TintColor="#CC000000"
+                                  TintOpacity="0.6"
+                                  FallbackColor="#1F1F1F"/>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <NavigationView x:Name="NavView"
+                        Canvas.ZIndex="0"
+                        ItemInvoked="NavView_ItemInvoked"
+                        Loaded="NavView_Loaded"
+                        BackRequested="NavView_BackRequested"
+                        IsSettingsVisible="True" OpenPaneLength="250" IsBackButtonVisible="Collapsed">
+
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="Basic Calculator" Icon="Calculator" Tag="basic"/>
+                <NavigationViewItem Content="Scientific Calculator" Tag="scientific">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE16E;" FontFamily="Segoe MDL2 Assets"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+
+            <NavigationView.Header>
+                <Grid Margin="24,10,0,0" x:Name="TitleBarDragArea">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                               FontSize="28"
+                               VerticalAlignment="Center"
+                               Text="calculator.UWP"/>
+
+                    <Button x:Name="HistoryButton"
+                            Click="HistoryButton_Click"
+                            HorizontalAlignment="Right"
+                            Background="Transparent"
+                            Margin="0,0,24,0"
+                            Grid.Column="2">
+                        <FontIcon Glyph="&#xE81C;" FontFamily="Segoe MDL2 Assets"/>
+
+                        <Button.Flyout>
+                            <Flyout x:Name="HistoryFlyout" Placement="Bottom">
+                                <Grid Width="300" MaxHeight="400">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Placeholder Text -->
+                                    <TextBlock x:Name="HistoryPlaceholder"
+                           Text="No history yet."
+                           FontSize="16"
+                           Foreground="{ThemeResource SystemControlForegroundBaseLowBrush}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Visibility="Visible"
+                           Grid.Row="1"/>
+
+                                    <!-- History List -->
+                                    <ListView x:Name="HistoryList"
+                          Margin="0"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          Visibility="Collapsed"
+                          Grid.Row="1"/>
+
+                                    <!-- Clear Button -->
+                                    <Button Content="Clear History"
+                        Click="ClearHistory_Click"
+                        HorizontalAlignment="Right"
+                        Margin="10"
+                        Grid.Row="2"/>
+                                </Grid>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+
+                </Grid>
+            </NavigationView.Header>
+
+            <Frame x:Name="ContentFrame" Margin="24">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition/>
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
+
+        </NavigationView>
+    </Grid>
+</Page>
